@@ -6,7 +6,7 @@ use App\Http\Resources\SizeResource;
 use App\Models\Size;
 use Illuminate\Http\Request;
 
-class SizeController extends Controller
+class SizeController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class SizeController extends Controller
      */
     public function index()
     {
-        return response()->json(Size::all(),200);
+        return $this->successResponse(Size::all(), 200);
+//        return response()->json(Size::all(),200);
     }
 
     /**

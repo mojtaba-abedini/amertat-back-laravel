@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\JensResource;
-use App\Models\Jens;
+use App\Models\ServicePrice;
 use Illuminate\Http\Request;
 
-class JensController extends ApiController
+class ServicePriceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class JensController extends ApiController
      */
     public function index()
     {
-        return $this->successResponse(Jens::all(), 200);
-//        return response()->json(Jens::all(),200);
-
+        return $this->successResponse(ServicePrice::all(), 200);
     }
 
     /**
@@ -37,9 +34,9 @@ class JensController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Jens $jen)
+    public function show($id)
     {
-        return new JensResource($jen);
+        //
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Http\Resources\KarbariResource;
 use App\Models\Karbari;
 use Illuminate\Http\Request;
 
-class KarbariController extends Controller
+class KarbariController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class KarbariController extends Controller
      */
     public function index()
     {
-        return response()->json(Karbari::all(),200);
+        return $this->successResponse(Karbari::all(), 200);
+//        return response()->json(Karbari::all(),200);
     }
 
     /**

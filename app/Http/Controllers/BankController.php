@@ -6,7 +6,7 @@ use App\Http\Resources\BankResource;
 use App\Models\Bank;
 use Illuminate\Http\Request;
 
-class BankController extends Controller
+class BankController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,9 @@ class BankController extends Controller
      */
     public function index()
     {
-        return response()->json(Bank::all(),200);
+        return $this->successResponse(Bank::all(), 200);
+//        return response()->json(Bank::all(),200);
+
     }
 
     /**

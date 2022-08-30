@@ -6,7 +6,7 @@ use App\Http\Controllers\KarbariController;
 use App\Http\Controllers\SizeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\VahedPriceController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +23,7 @@ Route::apiResource('sizes',SizeController::class);
 Route::apiResource('banks',BankController::class);
 Route::apiResource('jens',JensController::class);
 Route::apiResource('karbari',KarbariController::class);
+Route::apiResource('vahed',VahedPriceController::class);
 
 
 
