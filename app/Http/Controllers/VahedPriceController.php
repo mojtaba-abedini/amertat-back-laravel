@@ -77,7 +77,7 @@ class VahedPriceController extends ApiController
 
 
         $vahed->update([
-            'name' => $request->title,
+            'name' => $request->name,
         ]);
 
         return $this->successResponse($vahed, 200);
@@ -91,8 +91,10 @@ class VahedPriceController extends ApiController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Vahed $vahed)
     {
-        //
+        $vahed = $vahed->delete();
+        return $this->successResponse($vahed, 200);
+        // return $this->errorResponse('Error', 500);
     }
 }
