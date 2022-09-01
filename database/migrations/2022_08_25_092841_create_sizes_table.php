@@ -23,6 +23,7 @@ class CreateSizesTable extends Migration
             $table->string('name');
             $table->integer('paperTool');
             $table->integer('paperArz');
+            $table->timestamps();
         });
     }
 

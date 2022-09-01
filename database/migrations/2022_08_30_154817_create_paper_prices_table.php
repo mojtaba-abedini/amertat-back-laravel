@@ -15,22 +15,14 @@ class CreatePaperPricesTable extends Migration
     {
         Schema::create('paper_prices', function (Blueprint $table) {
             $table->id();
-            $table->integer('G150-60-90');
-            $table->integer('G150-100-70');
-            $table->integer('G170-60-90');
-            $table->integer('G170-100-70');
-            $table->integer('G200-60-90');
-            $table->integer('G2000-100-70');
-            $table->integer('G250-60-90');
-            $table->integer('G250-100-70');
-            $table->integer('G300-60-90');
-            $table->integer('G300-100-70');
-            $table->integer('C70-60-90');
-            $table->integer('C70-100-70');
-            $table->integer('C125-60-90');
-            $table->integer('C125-100-70');
-            $table->integer('C200-60-90');
-            $table->integer('C200-100-70');
+            $table->string('name');
+            $table->foreignId('jens_id');
+            $table->foreign('jens_id')->references('id')->on('jens')->onDelete('cascade');
+            $table->foreignId('gram_id');
+            $table->foreign('gram_id')->references('id')->on('grams')->onDelete('cascade');
+            $table->foreignId('shit_size_id');
+            $table->foreign('shit_size_id')->references('id')->on('shit_sizes')->onDelete('cascade');
+            $table->integer('price');
             $table->timestamps();
         });
     }
