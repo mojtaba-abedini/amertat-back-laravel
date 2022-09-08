@@ -104,7 +104,7 @@ class ServicePriceController extends ApiController
      */
     public function destroy($id)
     {
-        $result = ServicePrice::where('id', $id)->delete();
+        $result = ServicePrice::find('id', $id)->delete();
         return $this->successResponse($result, 200);
     }
 }

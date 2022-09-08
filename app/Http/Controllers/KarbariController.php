@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\KarbariResource;
 use App\Models\Karbari;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class KarbariController extends ApiController
 {
@@ -23,11 +24,29 @@ class KarbariController extends ApiController
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'jens_id' => 'required|integer',
+            'name' => 'required|string',
+
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->messages(), 422);
+        }
+
+
+        $karbari = Karbari::create([
+            'jens_id' => $request->jens_id,
+            'name' => $request->name,
+
+        ]);
+
+        return $this->successResponse($karbari, 201);
+        // return $this->errorResponse('Error', 500);
     }
 
     /**
@@ -36,9 +55,9 @@ class KarbariController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Karbari $karbari)
+    public function show($id)
     {
-        return new KarbariResource($karbari);
+        return  $this->successResponse(Karbari::find($id), 200);
     }
 
     /**
@@ -48,9 +67,25 @@ class KarbariController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Karbari $karbari)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'jens_id' => 'required|integer',
+            'name' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->messages(), 422);
+        }
+
+
+        $karbari->update([
+            'jens_id' => $request->jens_id,
+            'name' => $request->name,
+        ]);
+
+        return $this->successResponse($karbari, 200);
+        // return $this->errorResponse('Error', 500);
     }
 
     /**
@@ -61,6 +96,7 @@ class KarbariController extends ApiController
      */
     public function destroy($id)
     {
-        //
+        $result = Karbari::find($id)->delete();
+        return $this->successResponse($result, 200);
     }
 }

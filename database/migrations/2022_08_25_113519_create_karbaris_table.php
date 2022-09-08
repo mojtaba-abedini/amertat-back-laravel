@@ -18,6 +18,7 @@ class CreateKarbarisTable extends Migration
             $table->foreignId('jens_id');
             $table->foreign('jens_id')->references('id')->on('jens')->onDelete('cascade');
             $table->string('name');
+            $table->timestamps();
 
 
         });
