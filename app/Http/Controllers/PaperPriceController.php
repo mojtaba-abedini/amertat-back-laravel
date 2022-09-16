@@ -71,7 +71,7 @@ class PaperPriceController extends ApiController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PaperPrice $paper_price)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -86,7 +86,7 @@ class PaperPriceController extends ApiController
         }
 
 
-        $paper_price->update([
+        $result = PaperPrice::find($id)->update([
             'name' => $request->name,
             'jens_id' => $request->jens_id,
             'gram_id' => $request->gram_id,
@@ -95,7 +95,7 @@ class PaperPriceController extends ApiController
 
         ]);
 
-        return $this->successResponse($paper_price, 200);
+        return $this->successResponse($result, 200);
         // return $this->errorResponse('Error', 500);
     }
 
@@ -105,9 +105,9 @@ class PaperPriceController extends ApiController
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PaperPrice $paper_price)
+    public function destroy($id)
     {
-        $paper_price = $paper_price->delete();
-        return $this->successResponse($paper_price, 200);
+        $result = PaperPrice::find($id)->delete();
+        return $this->successResponse($result, 200);
     }
 }

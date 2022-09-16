@@ -67,7 +67,7 @@ class KarbariController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Karbari $karbari)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'jens_id' => 'required|integer',
@@ -79,12 +79,12 @@ class KarbariController extends ApiController
         }
 
 
-        $karbari->update([
+        $result = Karbari::find($id)->update([
             'jens_id' => $request->jens_id,
             'name' => $request->name,
         ]);
 
-        return $this->successResponse($karbari, 200);
+        return $this->successResponse($result, 200);
         // return $this->errorResponse('Error', 500);
     }
 
