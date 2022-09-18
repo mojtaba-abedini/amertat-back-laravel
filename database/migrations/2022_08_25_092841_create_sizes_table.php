@@ -15,14 +15,13 @@ class CreateSizesTable extends Migration
     {
         Schema::create('sizes', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('jens_id');
             $table->foreign('jens_id')->references('id')->on('jens')->onDelete('cascade');
             $table->foreignId('karbari_id');
             $table->foreign('karbari_id')->references('id')->on('karbaris')->onDelete('cascade');
+            $table->foreignId('paper_size_id');
+            $table->foreign('paper_size_id')->references('id')->on('paper_sizes')->onDelete('cascade');
             $table->string('name');
-            $table->integer('paperTool');
-            $table->integer('paperArz');
             $table->timestamps();
         });
     }

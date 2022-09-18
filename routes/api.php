@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VahedPriceController;
 use \App\Http\Controllers\ShitController;
 use \App\Http\Controllers\TarafHesabController;
+use \App\Http\Controllers\PaperSizeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,6 +38,7 @@ Route::apiResource('store',StoreController::class);
 Route::apiResource('gram',GramController::class);
 Route::apiResource('shits',ShitController::class);
 Route::apiResource('tarafhesab',TarafHesabController::class);
+Route::apiResource('papersize',PaperSizeController::class);
 
 
 

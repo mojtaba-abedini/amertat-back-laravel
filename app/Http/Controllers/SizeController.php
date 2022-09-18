@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\SizeResource;
+
 use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -32,9 +32,8 @@ class SizeController extends ApiController
 
             'jens_id' => 'required|integer',
             'karbari_id' => 'required|integer',
+            'paper_size_id' => 'required|integer',
             'name' => 'required|string',
-            'paperTool' => 'required|integer',
-            'paperArz' => 'required|integer',
 
         ]);
 
@@ -46,9 +45,9 @@ class SizeController extends ApiController
 
             'jens_id'  => $request->jens_id,
             'karbari_id'  => $request->karbari_id,
+            'paper_size_id'  => $request->paper_size_id,
             'name' => $request->name,
-            'paperTool'  => $request->paperTool,
-            'paperArz' => $request->paperArz,
+
 
         ]);
 
@@ -80,9 +79,9 @@ class SizeController extends ApiController
 
             'jens_id' => 'required|integer',
             'karbari_id' => 'required|integer',
+            'paper_size_id' => 'required|integer',
             'name' => 'required|string',
-            'paperTool' => 'required|integer',
-            'paperArz' => 'required|integer'
+
         ]);
 
         if ($validator->fails()) {
@@ -92,9 +91,9 @@ class SizeController extends ApiController
         $size->update([
             'jens_id'  => $request->jens_id,
             'karbari_id'  => $request->karbari_id,
+            'paper_size_id'  => $request->paper_size_id,
             'name' => $request->name,
-            'paperTool'  => $request->paperTool,
-            'paperArz' => $request->paperArz,
+
         ]);
 
         return $this->successResponse($size, 200);
