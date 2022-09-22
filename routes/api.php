@@ -5,7 +5,6 @@ use App\Http\Controllers\GramController;
 use App\Http\Controllers\JensController;
 use App\Http\Controllers\KarbariController;
 use App\Http\Controllers\PaperPriceController;
-
 use \App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\StoreController;
@@ -15,6 +14,8 @@ use App\Http\Controllers\VahedPriceController;
 use \App\Http\Controllers\ShitController;
 use \App\Http\Controllers\TarafHesabController;
 use \App\Http\Controllers\PaperSizeController;
+use \App\Http\Controllers\StatusController;
+use \App\Http\Controllers\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -39,6 +40,8 @@ Route::apiResource('gram',GramController::class);
 Route::apiResource('shits',ShitController::class);
 Route::apiResource('tarafhesab',TarafHesabController::class);
 Route::apiResource('papersize',PaperSizeController::class);
+Route::apiResource('status',StatusController::class);
+Route::apiResource('orders',OrderController::class);
 
 
 
