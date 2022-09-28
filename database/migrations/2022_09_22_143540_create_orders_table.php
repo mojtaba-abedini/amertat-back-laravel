@@ -37,9 +37,7 @@ class CreateOrdersTable extends Migration
             $table->integer('letter_press_id');
             $table->integer('sahafi_id');
             $table->integer('total_price');
-            $table->integer('peyaneh_price');
             $table->date('order_date');
-            $table->integer('bank_id');
 
             $table->timestamps();
         });

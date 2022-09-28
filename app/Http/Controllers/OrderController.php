@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -63,10 +64,11 @@ class OrderController extends ApiController
         if ($validator->fails()) {
             return $this->errorResponse($validator->messages(), 422);
         }
+
         $order_number = Carbon::now()->microsecond;
 
-        $order = Order::create([
 
+        $order = Order::create([
             'order_number' => $order_number,
             'status_id' => $request->status_id,
             'taraf_hesab_id' => $request->taraf_hesab_id,
@@ -83,14 +85,26 @@ class OrderController extends ApiController
             'letter_press_id' => $request->letter_press_id,
             'sahafi_id' => $request->sahafi_id,
             'total_price' => $request->total_price,
-            'peyaneh_price' => $request->peyaneh_price,
             'order_date' => $request->order_date,
+
+        ],);
+
+        $last_id =Order::all()->last()->id;
+
+        $payment = Payment::create([
+
+            'order_id' => $last_id,
+            'taraf_hesab_id' => $request->taraf_hesab_id,
             'bank_id' => $request->bank_id,
-
-
+            'mosbat_price' => $request->peyaneh_price,
+            'date' => $request->order_date,
         ]);
 
-        return $this->successResponse($order, 201);
+       return $this->successResponse([$order,$payment],201);
+
+
+
+
         // return $this->errorResponse('Error', 500);
 
     }
@@ -127,10 +141,9 @@ class OrderController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public
-    function update(Request $request, Order $order)
+    function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-
 
             'status_id' => 'required|integer',
             'taraf_hesab_id' => 'required|integer',
@@ -155,8 +168,7 @@ class OrderController extends ApiController
             return $this->errorResponse($validator->messages(), 422);
         }
 
-        $order->update([
-
+        $order= Order::find($id)->update([
             'order_number' => $request->order_number,
             'status_id' => $request->status_id,
             'taraf_hesab_id' => $request->taraf_hesab_id,
@@ -168,18 +180,34 @@ class OrderController extends ApiController
             'selefon_id' => $request->selefon_id,
             'talakoob_id' => $request->talakoob_id,
             'uv_id' => $request->uv_id,
-            'letter_press_id' => $request->letter_press_id,
-            'sahafi_id' => $request->sahafi_id,
             'size_ekhtesasi' => $request->size_ekhtesasi,
             'paper_sizes_id' => $request->paper_sizes_id,
+            'letter_press_id' => $request->letter_press_id,
+            'sahafi_id' => $request->sahafi_id,
             'total_price' => $request->total_price,
-            'peyaneh_price' => $request->peyaneh_price,
             'order_date' => $request->order_date,
-            'bank_id' => $request->bank_id,
 
         ]);
 
-        return $this->successResponse($order, 200);
+        $payment= Payment::where('order_id',$id) -> update([
+            'taraf_hesab_id' => $request->taraf_hesab_id,
+            'bank_id' => $request->bank_id,
+            'mosbat_price' => $request->peyaneh_price,
+            'date' => $request->order_date,
+        ]);
+
+         return  $this->successResponse([
+            'order' => $order,
+             'paument' => $payment
+         ], 200);
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -192,6 +220,9 @@ class OrderController extends ApiController
     function destroy($id)
     {
         $result = Order::find($id)->delete();
+
+        Payment::where('order_id',$id) -> delete();
+
         return $this->successResponse($result, 200);
     }
 }

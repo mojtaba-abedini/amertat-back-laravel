@@ -16,6 +16,7 @@ use \App\Http\Controllers\TarafHesabController;
 use \App\Http\Controllers\PaperSizeController;
 use \App\Http\Controllers\StatusController;
 use \App\Http\Controllers\OrderController;
+use \App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,6 +43,7 @@ Route::apiResource('tarafhesab',TarafHesabController::class);
 Route::apiResource('papersize',PaperSizeController::class);
 Route::apiResource('status',StatusController::class);
 Route::apiResource('orders',OrderController::class);
+Route::apiResource('payment',PaymentController::class);
 
 
 
