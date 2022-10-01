@@ -17,6 +17,7 @@ use \App\Http\Controllers\PaperSizeController;
 use \App\Http\Controllers\StatusController;
 use \App\Http\Controllers\OrderController;
 use \App\Http\Controllers\PaymentController;
+use \App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -42,14 +43,16 @@ Route::apiResource('shits',ShitController::class);
 Route::apiResource('tarafhesab',TarafHesabController::class);
 Route::apiResource('papersize',PaperSizeController::class);
 Route::apiResource('status',StatusController::class);
-Route::apiResource('orders',OrderController::class);
+//Route::apiResource('orders',OrderController::class)
+Route::apiResource('orders',OrderController::class)->middleware('auth:api');
 Route::apiResource('payment',PaymentController::class);
 
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
 
 
 
 
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:passport')->get('/user', function (Request $request) {
+//    return $request->user();
+//});

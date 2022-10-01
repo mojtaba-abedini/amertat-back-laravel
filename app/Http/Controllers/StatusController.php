@@ -86,7 +86,7 @@ class StatusController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,  StatusOrder $status_order)
+    public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
 
@@ -99,7 +99,7 @@ class StatusController extends ApiController
             return $this->errorResponse($validator->messages(), 422);
         }
 
-        $status_order->update([
+        $status_order= StatusOrder::find($id)-> update([
 
             'name' => $request->name,
 

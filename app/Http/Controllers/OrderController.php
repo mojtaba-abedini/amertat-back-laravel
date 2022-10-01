@@ -202,12 +202,6 @@ class OrderController extends ApiController
          ], 200);
 
 
-
-
-
-
-
-
     }
 
     /**

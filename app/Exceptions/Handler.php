@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\RelationNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -39,6 +41,10 @@ class Handler extends ExceptionHandler
 //            DB::rollBack();
 //            return $this->errorResponse($e->getMessage(), 500);
 //        }
+
+        if ($e instanceof RouteNotFoundException) {
+            return $this->errorResponse('unAuthenticated', 500);
+        }
 
         if ($e instanceof Error) {
             DB::rollBack();
